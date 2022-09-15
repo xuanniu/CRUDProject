@@ -10,6 +10,6 @@ class MainActivity : AppCompatActivity() {
 
         val retro = RetroAPI.create()
         val repo = UserRepository(retro)
-        repo.createUser()
+        repo.getAllUsers()
     }
 }

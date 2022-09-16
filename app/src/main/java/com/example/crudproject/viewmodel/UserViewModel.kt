@@ -36,11 +36,10 @@ class UserViewModel @Inject constructor(val repo: UserRepository) : ViewModel() 
         }
     }
 
-    fun updateUser(id: String, user: Person) {
+    fun updateUser(id: String, user: Person){
         CoroutineScope(Dispatchers.IO).launch {
             repo.updateUser(id, user)
             getAllUsers()
         }
     }
-
 }

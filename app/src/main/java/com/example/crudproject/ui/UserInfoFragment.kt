@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.crudproject.Person
 import com.example.crudproject.R
@@ -53,7 +54,7 @@ class UserInfoFragment : Fragment() {
         }
 
         editButton.setOnClickListener {
-
+            view.findNavController().navigate(R.id.action_userListFragment_to_userEditFragment)
         }
 
 

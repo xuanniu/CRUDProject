@@ -1,21 +1,17 @@
-package com.example.crudproject
+package com.example.crudproject.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.crudproject.Person
+import com.example.crudproject.repo.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class UserViewModel : ViewModel() {
-    val repo: UserRepository
-    val retro: RetroAPI
+class UserViewModel @Inject constructor(val repo: UserRepository) : ViewModel() {
 
-    init{
-        retro = RetroAPI.create()
-        repo = UserRepository(retro)
-    }
-
-    var userList = MutableLiveData<Map<String,Person>>()
+    var userList = MutableLiveData<Map<String, Person>>()
 
     fun getAllUsers() {
         CoroutineScope(Dispatchers.IO).launch {
@@ -39,4 +35,12 @@ class UserViewModel : ViewModel() {
             getAllUsers()
         }
     }
+
+    fun updateUser(id: String, user: Person) {
+        CoroutineScope(Dispatchers.IO).launch {
+            repo.updateUser(id, user)
+            getAllUsers()
+        }
+    }
+
 }

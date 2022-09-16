@@ -3,7 +3,6 @@ package com.example.crudproject.ui
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.crudproject.Person
-import com.example.crudproject.User
 
 class UserListViewModel : ViewModel() {
 

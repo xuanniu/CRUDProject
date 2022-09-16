@@ -8,7 +8,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crudproject.Person
 import com.example.crudproject.R
-import com.example.crudproject.User
 
 class PersonListAdapter(val data: List<Pair<String,Person>>, val userInfo : (person: Person, position: Int) -> Unit) : RecyclerView.Adapter<PersonViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonViewHolder {

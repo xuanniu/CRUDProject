@@ -44,7 +44,7 @@ class UserListFragment : Fragment() {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.person_recyclerview)
 
-        val userInfo = fun(person: Person, position : Int){
+        val userInfo = fun(person: Person, position : String){
 
             setFragmentResult("toUserDetails", bundleOf("data" to person, "id" to position))
             view.findNavController().navigate(R.id.action_userListFragment_to_userInfoFragment)

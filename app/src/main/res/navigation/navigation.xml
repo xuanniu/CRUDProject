@@ -28,7 +28,9 @@
         tools:layout="@layout/fragment_user_info" >
         <action
             android:id="@+id/action_userInfoFragment_to_userListFragment2"
-            app:destination="@id/userListFragment" />
+            app:destination="@id/userListFragment"
+            app:popUpTo="@id/userListFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_userInfoFragment_to_userEditFragment"
             app:destination="@id/userEditFragment" />
@@ -40,6 +42,13 @@
         tools:layout="@layout/fragment_user_edit" >
         <action
             android:id="@+id/action_userEditFragment_to_userInfoFragment"
-            app:destination="@id/userInfoFragment" />
+            app:destination="@id/userInfoFragment"
+            app:popUpTo="@id/userInfoFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_userEditFragment_to_userListFragment"
+            app:destination="@id/userListFragment"
+            app:popUpTo="@id/userListFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

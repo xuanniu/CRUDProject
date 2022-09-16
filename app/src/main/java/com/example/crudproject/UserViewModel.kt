@@ -39,4 +39,11 @@ class UserViewModel : ViewModel() {
             getAllUsers()
         }
     }
+
+    fun updateUser(id: String, user: Person){
+        CoroutineScope(Dispatchers.IO).launch {
+            repo.updateUser(id, user)
+            getAllUsers()
+        }
+    }
 }

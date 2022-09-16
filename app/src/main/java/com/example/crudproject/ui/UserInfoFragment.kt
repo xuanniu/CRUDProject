@@ -17,9 +17,11 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.crudproject.Person
 import com.example.crudproject.R
-import com.example.crudproject.UserViewModel
-import org.w3c.dom.Text
+import com.example.crudproject.viewmodel.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class UserInfoFragment : Fragment() {
 
     lateinit var nameTextView: TextView
@@ -27,6 +29,9 @@ class UserInfoFragment : Fragment() {
     lateinit var educationTextView: TextView
     lateinit var phoneTextView: TextView
     lateinit var aboutTextView: TextView
+
+    @Inject
+    lateinit var vm: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +47,6 @@ class UserInfoFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_user_info, container, false)
 
-        val vm = ViewModelProvider(this).get(UserViewModel::class.java)
 
         val editButton = view.findViewById<Button>(R.id.userinfo_edit_button)
         val deleteButton = view.findViewById<Button>(R.id.userinfo_delete_button)

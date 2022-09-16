@@ -15,10 +15,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.crudproject.Person
 import com.example.crudproject.R
-import com.example.crudproject.UserViewModel
+import com.example.crudproject.viewmodel.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class UserEditFragment : Fragment() {
+
+    @Inject
+    lateinit var vm: UserViewModel
 
     var person : Person? = null
     var editMode = false
@@ -35,7 +40,6 @@ class UserEditFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_user_edit, container, false)
 
-        val vm = ViewModelProvider(this).get(UserViewModel::class.java)
 
         val firstNameEditText = view.findViewById<EditText>(R.id.useredit_firstname_edittext)
         val lastNameEditText = view.findViewById<EditText>(R.id.useredit_lastname_edittext)

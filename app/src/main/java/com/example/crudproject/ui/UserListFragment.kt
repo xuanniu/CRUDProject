@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crudproject.Person
 import com.example.crudproject.R
+import com.example.crudproject.UserViewModel
 import com.example.crudproject.adapters.PersonListAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -23,14 +24,14 @@ class UserListFragment : Fragment() {
         fun newInstance() = UserListFragment()
     }
 
-    private lateinit var viewModel: UserListViewModel
+    private lateinit var viewModel: UserViewModel
 
 
-    var userList : ArrayList<Person> = ArrayList()
+    var userList = ArrayList<Pair<String,Person>>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(UserListViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
 
     }
@@ -43,9 +44,9 @@ class UserListFragment : Fragment() {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.person_recyclerview)
 
-        val userInfo = fun(person: Person){
+        val userInfo = fun(person: Person, position : Int){
 
-            setFragmentResult("toUserDetails", bundleOf("data" to person))
+            setFragmentResult("toUserDetails", bundleOf("data" to person, "id" to position))
             view.findNavController().navigate(R.id.action_userListFragment_to_userInfoFragment)
 
         }
@@ -62,13 +63,18 @@ class UserListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
 
-        viewModel.data.observe(viewLifecycleOwner, Observer {
-            userList.clear()
-            userList.addAll(it)
-            adapter.notifyDataSetChanged()
+        viewModel.userList.observe(viewLifecycleOwner, Observer {
+            if(!it.isNullOrEmpty()) {
+                userList.clear()
+                userList.addAll(it.toList())
+                adapter.notifyDataSetChanged()
+            } else {
+                userList.clear()
+                adapter.notifyDataSetChanged()
+            }
         })
 
-        viewModel.fetchUsers()
+        viewModel.getAllUsers()
 
 
 

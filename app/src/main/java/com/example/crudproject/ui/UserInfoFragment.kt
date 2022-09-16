@@ -29,6 +29,8 @@ class UserInfoFragment : Fragment() {
         activity?.actionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    var person : Person? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
@@ -62,12 +64,12 @@ class UserInfoFragment : Fragment() {
         aboutTextView = view.findViewById<TextView>(R.id.userinfo_about_textview)
 
         setFragmentResultListener("toUserDetails") { key, result ->
-            val person: Person = result.getSerializable("data") as Person
-            nameTextView.setText("${person.firstName} ${person.lastName}")
-            occupationTextView.setText(person.occupation)
-            educationTextView.setText(person.education)
-            phoneTextView.setText(person.phone)
-            aboutTextView.setText(person.about)
+            person = result.getSerializable("data") as Person
+            nameTextView.setText("${person!!.firstName} ${person!!.lastName}")
+            occupationTextView.setText(person!!.occupation)
+            educationTextView.setText(person!!.education)
+            phoneTextView.setText(person!!.phone)
+            aboutTextView.setText(person!!.about)
         }
 
 

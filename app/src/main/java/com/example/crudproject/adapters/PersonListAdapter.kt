@@ -10,20 +10,20 @@ import com.example.crudproject.Person
 import com.example.crudproject.R
 import com.example.crudproject.User
 
-class PersonListAdapter(val data: List<Person>, val userInfo : (person: Person) -> Unit) : RecyclerView.Adapter<PersonViewHolder>() {
+class PersonListAdapter(val data: List<Pair<String,Person>>, val userInfo : (person: Person, position: Int) -> Unit) : RecyclerView.Adapter<PersonViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.user_list_item, parent, false)
         return PersonViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: PersonViewHolder, position: Int) {
-        val item = data.get(position)
+        val item = data.get(position).second
         holder.firstNameTextView.setText(item.firstName + " ")
         holder.lastNameTextView.setText(item.lastName)
         holder.occupationTextView.setText(item.occupation)
         holder.phoneTextView.setText(item.phone)
         holder.rootLayout.setOnClickListener {
-            userInfo(item)
+            userInfo(item, position)
         }
     }
 

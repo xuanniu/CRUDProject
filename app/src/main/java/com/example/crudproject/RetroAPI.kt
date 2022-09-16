@@ -13,7 +13,7 @@ interface RetroAPI {
     suspend fun createUsers(@Body requestBody: RequestBody): Response<ResponseBody>
 
     @GET("users.json")
-    suspend fun getAllUsers(): Response<Map<String, User>>
+    suspend fun getAllUsers(): Response<Map<String, Person>>
 
     @PATCH("users/{id}.json")
     suspend fun updateUser(@Path("id") id: String, @Body requestBody: RequestBody): Response<ResponseBody>

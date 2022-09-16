@@ -3,8 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/xuann/AndroidStudioProjects/CrudProject2/app/src/main/res/layout/activity_main.xml" value="0.16" />
-        <entry key="..\:/Users/xuann/AndroidStudioProjects/CrudProject2/app/src/main/res/layout/user_card.xml" value="0.264" />
+        <entry key="..\:/Users/dejav/Desktop/crudapp/CRUDProject/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.142" />
+        <entry key="..\:/Users/dejav/Desktop/crudapp/CRUDProject/app/src/main/res/layout/activity_fragment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/dejav/Desktop/crudapp/CRUDProject/app/src/main/res/layout/fragment_user_edit.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/dejav/Desktop/crudapp/CRUDProject/app/src/main/res/layout/fragment_user_info.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/dejav/Desktop/crudapp/CRUDProject/app/src/main/res/layout/fragment_user_list.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/dejav/Desktop/crudapp/CRUDProject/app/src/main/res/layout/user_list_item.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

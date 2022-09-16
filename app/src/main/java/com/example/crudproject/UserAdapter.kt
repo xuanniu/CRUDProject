@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class UserAdapter(private val onUserClick: (position: Int) -> Unit,
-private val userList : List<Pair<String,User>>) : RecyclerView.Adapter<ViewHolder>() {
+private val userList : List<Pair<String,Person>>) : RecyclerView.Adapter<ViewHolder>() {
     private val TYPE_BOOK = 0
     private val TYPE_SEE_MORE = 1
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

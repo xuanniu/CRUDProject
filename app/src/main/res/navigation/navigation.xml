@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/userListFragment">
+
+    <fragment
+        android:id="@+id/userListFragment"
+        android:name="com.example.crudproject.ui.UserListFragment"
+        android:label="fragment_user_list"
+        tools:layout="@layout/fragment_user_list" >
+        <action
+            android:id="@+id/action_userListFragment_to_userInfoFragment"
+            app:destination="@id/userInfoFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_userListFragment_to_userEditFragment"
+            app:destination="@id/userEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userInfoFragment"
+        android:name="com.example.crudproject.ui.UserInfoFragment"
+        android:label="fragment_user_info"
+        tools:layout="@layout/fragment_user_info" >
+        <action
+            android:id="@+id/action_userInfoFragment_to_userListFragment2"
+            app:destination="@id/userListFragment" />
+        <action
+            android:id="@+id/action_userInfoFragment_to_userEditFragment"
+            app:destination="@id/userEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userEditFragment"
+        android:name="com.example.crudproject.ui.UserEditFragment"
+        android:label="fragment_user_edit"
+        tools:layout="@layout/fragment_user_edit" >
+        <action
+            android:id="@+id/action_userEditFragment_to_userInfoFragment"
+            app:destination="@id/userInfoFragment" />
+    </fragment>
+</navigation>

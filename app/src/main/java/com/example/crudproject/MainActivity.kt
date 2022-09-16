@@ -9,20 +9,22 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
-    var userList = ArrayList<Pair<String,User>>()
+    var userList = ArrayList<Pair<String,Person>>()
     lateinit var adapter : UserAdapter
     lateinit var vm: UserViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val retro = RetroAPI.create()
-        val repo = UserRepository(retro)
-        vm = UserViewModel(repo)
+        /*val retro = RetroAPI.create()
+        val repo = UserRepository(retro)*/
+
+        vm = ViewModelProvider(this).get(UserViewModel::class.java)
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         val addUserButton = findViewById<Button>(R.id.add_user)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -30,7 +32,8 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         vm.userList.observe(this) {
-            userToList(it)
+            if(!it.isNullOrEmpty())
+                userToList(it)
         }
         vm.getAllUsers()
 
@@ -51,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             builder.setView(layout)
             builder.setPositiveButton("OK",
                 DialogInterface.OnClickListener { dialog, which ->
-                    val user = User(firstNameEditText.text.toString(),lastNameEditText.text.toString())
+                    val user = Person(firstNameEditText.text.toString(),lastNameEditText.text.toString(), "default", "default", "default", "default")
                     vm.createUser(user)
                     dialog.cancel()
                 })
@@ -68,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         vm.deleteUser(userList[position].first)
     }
 
-    fun userToList(users: Map<String, User>) {
+    fun userToList(users: Map<String, Person>) {
         userList.clear()
         if (!users.isNullOrEmpty()) {
             userList.addAll(users.toList())

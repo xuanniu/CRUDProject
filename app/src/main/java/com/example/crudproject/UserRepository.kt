@@ -15,13 +15,13 @@ import retrofit2.Response
 
 class UserRepository(val retro: RetroAPI) {
 
-    suspend fun createUser(user: User): Response<ResponseBody>  {
+    suspend fun createUser(user: Person): Response<ResponseBody>  {
         val json = Gson() .toJson(user)
         val requestBody = json.toRequestBody("application/json".toMediaTypeOrNull())
         return retro.createUsers(requestBody)
     }
 
-    suspend fun getAllUsers(): Response<Map<String, User>> {
+    suspend fun getAllUsers(): Response<Map<String, Person>> {
         return retro.getAllUsers()
     }
 
@@ -29,7 +29,7 @@ class UserRepository(val retro: RetroAPI) {
         retro.deleteUser(id)
     }
 
-    suspend fun updateUser(id: String, user: User): Response<ResponseBody> {
+    suspend fun updateUser(id: String, user: Person): Response<ResponseBody> {
         val json = Gson().toJson(user)
         val requestBody = json.toRequestBody("application/json".toMediaTypeOrNull())
         return retro.updateUser(id, requestBody)

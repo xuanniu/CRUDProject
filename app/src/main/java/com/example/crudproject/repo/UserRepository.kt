@@ -1,19 +1,15 @@
-package com.example.crudproject
+package com.example.crudproject.repo
 
+import com.example.crudproject.Person
+import com.example.crudproject.api.RetroAPI
 import com.google.gson.Gson
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.ResponseBody
-import org.json.JSONObject
 import retrofit2.Response
+import javax.inject.Inject
 
-class UserRepository(val retro: RetroAPI) {
+class UserRepository @Inject constructor(val retro: RetroAPI) {
 
     suspend fun createUser(user: Person): Response<ResponseBody>  {
         val json = Gson() .toJson(user)

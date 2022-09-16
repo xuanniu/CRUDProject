@@ -1,6 +1,5 @@
 package com.example.crudproject.ui
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,25 +13,27 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crudproject.Person
 import com.example.crudproject.R
-import com.example.crudproject.UserViewModel
+import com.example.crudproject.viewmodel.UserViewModel
 import com.example.crudproject.adapters.PersonListAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class UserListFragment : Fragment() {
 
     companion object {
         fun newInstance() = UserListFragment()
     }
 
-    private lateinit var viewModel: UserViewModel
+    @Inject
+    lateinit var viewModel: UserViewModel
 
 
     var userList = ArrayList<Pair<String,Person>>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-
 
     }
 

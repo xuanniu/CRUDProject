@@ -13,6 +13,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.crudproject.Person
 import com.example.crudproject.R
@@ -45,6 +46,24 @@ class UserInfoFragment : Fragment() {
 
         val editButton = view.findViewById<Button>(R.id.userinfo_edit_button)
         val deleteButton = view.findViewById<Button>(R.id.userinfo_delete_button)
+
+        deleteButton.setOnClickListener {
+            val alertDialog = AlertDialog.Builder(context)
+                .setTitle("Delete person")
+                .setMessage("Are you sure you want to delete this person?")
+                .setPositiveButton("Delete") { dialogInterface, i ->
+                    findNavController().navigate(R.id.action_userInfoFragment_to_userListFragment2)
+                }
+                .setNegativeButton("Cancel") { dialogInterface, i ->
+                    Toast.makeText(context, "Operation cancelled", Toast.LENGTH_SHORT).show()
+                }
+            alertDialog.create().show()
+        }
+
+        editButton.setOnClickListener {
+
+        }
+
 
         nameTextView = view.findViewById<TextView>(R.id.userinfo_name_textview)
         occupationTextView = view.findViewById<TextView>(R.id.userinfo_occupation_textview)

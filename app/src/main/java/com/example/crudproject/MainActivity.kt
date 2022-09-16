@@ -30,7 +30,8 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         vm.userList.observe(this) {
-            userToList(it)
+            if(!it.isNullOrEmpty())
+                userToList(it)
         }
         vm.getAllUsers()
 

@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">CrudProject</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name">Name:</string>
+    <string name="default_field">default</string>
+    <string name="occupation">Occupation:</string>
+    <string name="education">Education:</string>
+    <string name="phone">Phone:</string>
+    <string name="about">About:</string>
+    <string name="modify">Modify</string>
+    <string name="delete">Delete</string>
+    <string name="commit">Commit</string>
 </resources>

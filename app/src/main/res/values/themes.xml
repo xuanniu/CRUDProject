@@ -25,4 +25,8 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+    <style name="TextNormal_24pt" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/dark_grey</item>
+        <item name="android:textSize">24sp</item>
+    </style>
 </resources>

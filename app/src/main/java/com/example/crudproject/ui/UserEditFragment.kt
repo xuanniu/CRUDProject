@@ -31,7 +31,14 @@ class UserEditFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (savedInstanceState != null) {
+            id = savedInstanceState.getString("id").toString()
+        }
+    }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putAll(bundleOf("id" to id, "data" to person))
     }
 
     override fun onCreateView(
@@ -52,17 +59,20 @@ class UserEditFragment : Fragment() {
         val cancelButton = view.findViewById<Button>(R.id.useredit_cancel_button)
 
         setFragmentResultListener("editPerson") { key, result ->
-            //TODO load the record if in edit mode, for now let's focus on adding a record
             editMode = true
-            person = result.getSerializable("data") as Person
-            firstNameEditText.setText(person!!.firstName)
-            lastNameEditText.setText(person!!.lastName)
-            occupationEditText.setText(person!!.occupation)
-            educationEditText.setText(person!!.education)
-            phoneEditText.setText(person!!.phone)
-            aboutEditText.setText(person!!.about)
-
             id = result.getString("id").toString()
+        }
+
+        vm.userList.observe(viewLifecycleOwner) {
+            if(editMode){
+                person = vm.getUser(id)
+                firstNameEditText.setText(person!!.firstName)
+                lastNameEditText.setText(person!!.lastName)
+                occupationEditText.setText(person!!.occupation)
+                educationEditText.setText(person!!.education)
+                phoneEditText.setText(person!!.phone)
+                aboutEditText.setText(person!!.about)
+            }
         }
 
         val generatePerson = fun(){

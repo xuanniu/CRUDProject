@@ -1,5 +1,6 @@
 package com.example.crudproject.ui
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crudproject.Person
@@ -31,11 +33,13 @@ class UserListFragment : Fragment() {
 
 
     var userList = ArrayList<Pair<String,Person>>()
+    lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,11 +47,11 @@ class UserListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_user_list, container, false)
 
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.person_recyclerview)
+        recyclerView = view.findViewById<RecyclerView>(R.id.person_recyclerview)
 
-        val userInfo = fun(person: Person, position : String){
+        val userInfo = fun(person: Person, id : String, position: Int){
 
-            setFragmentResult("toUserDetails", bundleOf("data" to person, "id" to position))
+            setFragmentResult("toUserDetails", bundleOf("data" to person, "id" to id, "position" to position))
             view.findNavController().navigate(R.id.action_userListFragment_to_userInfoFragment)
 
         }
@@ -58,10 +62,12 @@ class UserListFragment : Fragment() {
             view.findNavController().navigate(R.id.action_userListFragment_to_userEditFragment)
         })
 
+        val orientation = resources.configuration.orientation
 
         val adapter = PersonListAdapter(userList, userInfo)
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView.layoutManager = if(orientation == Configuration.ORIENTATION_PORTRAIT) LinearLayoutManager(activity)
+                                        else GridLayoutManager(activity, 2)
 
 
         viewModel.userList.observe(viewLifecycleOwner, Observer {
@@ -75,7 +81,6 @@ class UserListFragment : Fragment() {
             }
         })
 
-        viewModel.getAllUsers()
 
 
 

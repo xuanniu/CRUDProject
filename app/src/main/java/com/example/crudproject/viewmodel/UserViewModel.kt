@@ -13,6 +13,10 @@ class UserViewModel @Inject constructor(val repo: UserRepository) : ViewModel() 
 
     var userList = MutableLiveData<Map<String, Person>>()
 
+    init {
+        getAllUsers()
+    }
+
     fun getAllUsers() {
         CoroutineScope(Dispatchers.IO).launch {
             var res = repo.getAllUsers()
@@ -20,6 +24,10 @@ class UserViewModel @Inject constructor(val repo: UserRepository) : ViewModel() 
                 userList.postValue(res.body())
             }
         }
+    }
+
+    fun getUser(id: String) : Person? {
+        return userList.value?.getValue(id)
     }
 
     fun deleteUser(id: String) {

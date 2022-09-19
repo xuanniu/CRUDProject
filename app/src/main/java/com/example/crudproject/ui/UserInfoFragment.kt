@@ -30,16 +30,23 @@ class UserInfoFragment : Fragment() {
     lateinit var phoneTextView: TextView
     lateinit var aboutTextView: TextView
 
+    var person : Person? = null
+    var id = ""
+
     @Inject
     lateinit var vm: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activity?.actionBar?.setDisplayHomeAsUpEnabled(true)
+        if (savedInstanceState != null) {
+            id = savedInstanceState.getString("id").toString()
+        }
     }
 
-    var person : Person? = null
-    var id = ""
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putAll(bundleOf("id" to id, "data" to person))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,24 +58,6 @@ class UserInfoFragment : Fragment() {
         val editButton = view.findViewById<Button>(R.id.userinfo_edit_button)
         val deleteButton = view.findViewById<Button>(R.id.userinfo_delete_button)
 
-        deleteButton.setOnClickListener {
-            val alertDialog = AlertDialog.Builder(context)
-                .setTitle("Delete person")
-                .setMessage("Are you sure you want to delete this person?")
-                .setPositiveButton("Delete") { dialogInterface, i ->
-                    findNavController().navigate(R.id.action_userInfoFragment_to_userListFragment2)
-                }
-                .setNegativeButton("Cancel") { dialogInterface, i ->
-                    Toast.makeText(context, "Operation cancelled", Toast.LENGTH_SHORT).show()
-                }
-            alertDialog.create().show()
-        }
-
-        editButton.setOnClickListener {
-
-        }
-
-
         nameTextView = view.findViewById<TextView>(R.id.userinfo_name_textview)
         occupationTextView = view.findViewById<TextView>(R.id.userinfo_occupation_textview)
         educationTextView = view.findViewById<TextView>(R.id.userinfo_education_textview)
@@ -76,14 +65,19 @@ class UserInfoFragment : Fragment() {
         aboutTextView = view.findViewById<TextView>(R.id.userinfo_about_textview)
 
         setFragmentResultListener("toUserDetails") { key, result ->
-            person = result.getSerializable("data") as Person
+            //person = result.getSerializable("data") as Person
+            id = result.getString("id").toString()
+
+        }
+
+        vm.userList.observe(viewLifecycleOwner) {
+            person = vm.getUser(id)
+
             nameTextView.setText("${person!!.firstName} ${person!!.lastName}")
             occupationTextView.setText(person!!.occupation)
             educationTextView.setText(person!!.education)
             phoneTextView.setText(person!!.phone)
             aboutTextView.setText(person!!.about)
-
-            id = result.getString("id").toString()
         }
 
         deleteButton.setOnClickListener {
@@ -91,7 +85,11 @@ class UserInfoFragment : Fragment() {
                 .setTitle("Delete person")
                 .setMessage("Are you sure you want to delete this person?")
                 .setPositiveButton("Delete") { dialogInterface, i ->
-                    vm.deleteUser(id)
+                    if(!id.isEmpty()) {
+                        vm.deleteUser(id)
+                    } else {
+                        Toast.makeText(context, "There was an error deleting this person", Toast.LENGTH_SHORT).show()
+                    }
                     findNavController().navigate(R.id.action_userInfoFragment_to_userListFragment2)
                 }
                 .setNegativeButton("Cancel") { dialogInterface, i ->

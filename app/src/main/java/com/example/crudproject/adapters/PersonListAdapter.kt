@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.crudproject.Person
 import com.example.crudproject.R
 
-class PersonListAdapter(val data: List<Pair<String,Person>>, val userInfo : (person: Person, position: String) -> Unit) : RecyclerView.Adapter<PersonViewHolder>() {
+class PersonListAdapter(val data: List<Pair<String,Person>>, val userInfo : (person: Person, id: String, position : Int) -> Unit) : RecyclerView.Adapter<PersonViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.user_list_item, parent, false)
         return PersonViewHolder(view)
@@ -23,7 +23,7 @@ class PersonListAdapter(val data: List<Pair<String,Person>>, val userInfo : (per
         holder.occupationTextView.setText(item.occupation)
         holder.phoneTextView.setText(item.phone)
         holder.rootLayout.setOnClickListener {
-            userInfo(item, pos)
+            userInfo(item, pos, position)
         }
     }
 

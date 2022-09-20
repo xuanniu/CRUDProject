@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -37,7 +38,6 @@ class UserListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
 
@@ -55,6 +55,8 @@ class UserListFragment : Fragment() {
             view.findNavController().navigate(R.id.action_userListFragment_to_userInfoFragment)
 
         }
+
+
 
         val fab = view.findViewById<FloatingActionButton>(R.id.userlist_fab)
 
@@ -81,7 +83,9 @@ class UserListFragment : Fragment() {
             }
         })
 
-
+        setFragmentResultListener("toUserList"){key, result ->
+            viewModel.getAllUsers()
+        }
 
 
         return view

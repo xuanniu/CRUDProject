@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/userinfo_root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_beige"
+    tools:context=".ui.UserInfoFragment">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="600dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="5dp"
+        app:contentPadding="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/userinfo_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp"
+                app:layout_constraintBottom_toTopOf="@+id/userinfo_edit_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="256dp"
+                    android:layout_height="256dp"
+                    android:src="@drawable/ic_baseline_account_circle_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <LinearLayout
+                    android:id="@+id/userinfo_name_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:weightSum="3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView3">
+
+                    <TextView
+                        android:id="@+id/userinfo_name_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/name"
+                        android:textAppearance="@style/TextBold_18pt" />
+
+                    <TextView
+                        android:id="@+id/userinfo_name_textview"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/default_field"
+                        android:textAppearance="@style/TextNormal_18pt" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/userinfo_occupation_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:weightSum="3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/userinfo_name_layout">
+
+                    <TextView
+                        android:id="@+id/userinfo_occupation_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/occupation"
+                        android:textAppearance="@style/TextBold_18pt" />
+
+                    <TextView
+                        android:id="@+id/userinfo_occupation_textview"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/default_field"
+                        android:textAppearance="@style/TextNormal_18pt" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/userinfo_education_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:weightSum="3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/userinfo_occupation_layout">
+
+                    <TextView
+                        android:id="@+id/userinfo_education_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/education"
+                        android:textAppearance="@style/TextBold_18pt" />
+
+                    <TextView
+                        android:id="@+id/userinfo_education_textview"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/default_field"
+                        android:textAppearance="@style/TextNormal_18pt" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/userinfo_phone_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:weightSum="3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/userinfo_education_layout">
+
+                    <TextView
+                        android:id="@+id/userinfo_phone_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/phone"
+                        android:textAppearance="@style/TextBold_18pt" />
+
+                    <TextView
+                        android:id="@+id/userinfo_phone_textview"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/default_field"
+                        android:textAppearance="@style/TextNormal_18pt" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/userinfo_about_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:weightSum="3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/userinfo_phone_layout">
+
+                    <TextView
+                        android:id="@+id/userinfo_about_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/about"
+                        android:textAppearance="@style/TextBold_18pt" />
+
+                    <TextView
+                        android:id="@+id/userinfo_about_textview"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/default_field"
+                        android:textAppearance="@style/TextNormal_18pt" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/userinfo_edit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/modify"
+                app:icon="@drawable/ic_baseline_edit_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/userinfo_delete_button"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/userinfo_delete_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete"
+                app:icon="@drawable/ic_baseline_delete_forever_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/userinfo_edit_button" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

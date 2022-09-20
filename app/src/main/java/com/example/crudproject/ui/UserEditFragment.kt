@@ -99,8 +99,8 @@ class UserEditFragment : Fragment() {
             vm.updateUser(id, person!!)
 
             Toast.makeText(context, "Record updated", Toast.LENGTH_SHORT).show()
-
-            findNavController().navigate(R.id.action_userEditFragment_to_userListFragment)
+            setFragmentResult("toUserDetails", bundleOf("data" to person, "id" to id))
+            findNavController().navigate(R.id.action_userEditFragment_to_userInfoFragment)
         }
 
         commitButton.setOnClickListener { if(!editMode) addPerson() else updatePerson()}

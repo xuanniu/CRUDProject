@@ -6,6 +6,7 @@ import com.example.crudproject.Person
 import com.example.crudproject.repo.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,22 +31,22 @@ class UserViewModel @Inject constructor(val repo: UserRepository) : ViewModel() 
         return userList.value?.getValue(id)
     }
 
-    fun deleteUser(id: String) {
-        CoroutineScope(Dispatchers.IO).launch {
+    fun deleteUser(id: String) : Job {
+        return CoroutineScope(Dispatchers.IO).launch {
             repo.deleteUser(id)
             getAllUsers()
         }
     }
 
-    fun createUser(user: Person) {
-        CoroutineScope(Dispatchers.IO).launch {
+    fun createUser(user: Person) : Job {
+        return CoroutineScope(Dispatchers.IO).launch {
             repo.createUser(user)
             getAllUsers()
         }
     }
 
-    fun updateUser(id: String, user: Person){
-        CoroutineScope(Dispatchers.IO).launch {
+    fun updateUser(id: String, user: Person) : Job {
+        return CoroutineScope(Dispatchers.IO).launch {
             repo.updateUser(id, user)
             getAllUsers()
         }

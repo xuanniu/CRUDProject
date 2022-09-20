@@ -17,6 +17,7 @@ import com.example.crudproject.Person
 import com.example.crudproject.R
 import com.example.crudproject.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -87,20 +88,24 @@ class UserEditFragment : Fragment() {
         }
 
         val addPerson = fun(){
-            generatePerson()
-            vm.createUser(person!!)
-            Toast.makeText(context, "Record created", Toast.LENGTH_SHORT).show()
+            runBlocking {
+                generatePerson()
+                vm.createUser(person!!).join()
+                Toast.makeText(context, "Record created", Toast.LENGTH_SHORT).show()
 
-            findNavController().navigate(R.id.action_userEditFragment_to_userListFragment)
+                findNavController().navigate(R.id.action_userEditFragment_to_userListFragment)
+            }
         }
 
         val updatePerson = fun(){
-            generatePerson()
-            vm.updateUser(id, person!!)
+            runBlocking {
+                generatePerson()
+                vm.updateUser(id, person!!).join()
 
-            Toast.makeText(context, "Record updated", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Record updated", Toast.LENGTH_SHORT).show()
 
-            findNavController().navigate(R.id.action_userEditFragment_to_userListFragment)
+                findNavController().navigate(R.id.action_userEditFragment_to_userListFragment)
+            }
         }
 
         commitButton.setOnClickListener { if(!editMode) addPerson() else updatePerson()}

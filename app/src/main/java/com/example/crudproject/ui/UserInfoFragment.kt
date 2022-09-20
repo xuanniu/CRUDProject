@@ -19,6 +19,7 @@ import com.example.crudproject.Person
 import com.example.crudproject.R
 import com.example.crudproject.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -85,12 +86,18 @@ class UserInfoFragment : Fragment() {
                 .setTitle("Delete person")
                 .setMessage("Are you sure you want to delete this person?")
                 .setPositiveButton("Delete") { dialogInterface, i ->
-                    if(!id.isEmpty()) {
-                        vm.deleteUser(id)
-                    } else {
-                        Toast.makeText(context, "There was an error deleting this person", Toast.LENGTH_SHORT).show()
+                    runBlocking {
+                        if (!id.isEmpty()) {
+                            vm.deleteUser(id).join()
+                        } else {
+                            Toast.makeText(
+                                context,
+                                "There was an error deleting this person",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        findNavController().navigate(R.id.action_userInfoFragment_to_userListFragment2)
                     }
-                    findNavController().navigate(R.id.action_userInfoFragment_to_userListFragment2)
                 }
                 .setNegativeButton("Cancel") { dialogInterface, i ->
                     Toast.makeText(context, "Operation cancelled", Toast.LENGTH_SHORT).show()

@@ -34,12 +34,13 @@ class UserEditFragment : Fragment() {
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null) {
             id = savedInstanceState.getString("id").toString()
+            editMode = savedInstanceState.getBoolean("editMode")
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putAll(bundleOf("id" to id, "data" to person))
+        outState.putAll(bundleOf("id" to id, "data" to person, "editMode" to editMode))
     }
 
     override fun onCreateView(
@@ -101,7 +102,7 @@ class UserEditFragment : Fragment() {
             runBlocking {
                 generatePerson()
                 vm.updateUser(id, person!!).join()
-
+                setFragmentResult("toUserDetails", bundleOf("data" to person, "id" to id))
                 Toast.makeText(context, "Record updated", Toast.LENGTH_SHORT).show()
 
                 findNavController().navigate(R.id.action_userEditFragment_to_userListFragment)
@@ -114,8 +115,10 @@ class UserEditFragment : Fragment() {
                 setFragmentResult("toUserDetails", bundleOf("data" to person, "id" to id))
                 findNavController().navigate(R.id.action_userEditFragment_to_userInfoFragment)
             }
-            else
+            else {
+                setFragmentResult("toUserList", bundleOf())
                 findNavController().navigate(R.id.action_userEditFragment_to_userListFragment)
+            }
         }
 
 

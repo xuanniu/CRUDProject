@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -37,7 +39,6 @@ class UserListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
 
@@ -45,15 +46,13 @@ class UserListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle? ): View? {
         val view = inflater.inflate(R.layout.fragment_user_list, container, false)
-
+        val emptyListTextView = view.findViewById<TextView>(R.id.empty_list_textview)
 
         recyclerView = view.findViewById<RecyclerView>(R.id.person_recyclerview)
 
         val userInfo = fun(person: Person, id : String, position: Int){
-
             setFragmentResult("toUserDetails", bundleOf("data" to person, "id" to id, "position" to position))
             view.findNavController().navigate(R.id.action_userListFragment_to_userInfoFragment)
-
         }
 
         val fab = view.findViewById<FloatingActionButton>(R.id.userlist_fab)
@@ -72,16 +71,22 @@ class UserListFragment : Fragment() {
 
         viewModel.userList.observe(viewLifecycleOwner, Observer {
             if(!it.isNullOrEmpty()) {
+                recyclerView.visibility = View.VISIBLE
+                emptyListTextView.visibility = View.GONE
                 userList.clear()
                 userList.addAll(it.toList())
                 adapter.notifyDataSetChanged()
             } else {
+                recyclerView.visibility = View.GONE
+                emptyListTextView.visibility = View.VISIBLE
                 userList.clear()
                 adapter.notifyDataSetChanged()
             }
         })
 
-
+        setFragmentResultListener("toUserList"){key, result ->
+            viewModel.getAllUsers()
+        }
 
 
         return view

@@ -73,12 +73,13 @@ class UserInfoFragment : Fragment() {
 
         vm.userList.observe(viewLifecycleOwner) {
             person = vm.getUser(id)
-
-            nameTextView.setText("${person!!.firstName} ${person!!.lastName}")
-            occupationTextView.setText(person!!.occupation)
-            educationTextView.setText(person!!.education)
-            phoneTextView.setText(person!!.phone)
-            aboutTextView.setText(person!!.about)
+            if(person != null) {
+                nameTextView.setText("${person!!.firstName} ${person!!.lastName}")
+                occupationTextView.setText(person!!.occupation)
+                educationTextView.setText(person!!.education)
+                phoneTextView.setText(person!!.phone)
+                aboutTextView.setText(person!!.about)
+            }
         }
 
         deleteButton.setOnClickListener {
@@ -112,6 +113,11 @@ class UserInfoFragment : Fragment() {
 
 
         return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        setFragmentResult("toUserList", bundleOf())
     }
 
     companion object {
